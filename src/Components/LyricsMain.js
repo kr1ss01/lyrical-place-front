@@ -109,7 +109,6 @@ export default class LyricsMain extends Component {
             })
         } else if (result.status === 200) {
             result.json().then(responseData => {
-                console.log(responseData.message)
                 this.setState({
                     success: responseData.message
                 })
@@ -171,6 +170,7 @@ export default class LyricsMain extends Component {
                     <h3 className="text-center mt-5 mb-3">{this.state.record.userAuthor} - {this.state.record.songTitle} Lyrics 
                         {this.handleFav()}
                     </h3>
+                    <button className="btn btn-outline-dark btn-sm" onClick={() => {let btn =  document.getElementById("sidenav-info-lyrics"); btn.style.display === "none" ? btn.style.display = "block" : btn.style.display = "none"}} id="btn-show-info">Show Info <i className="fa fa-eye" aria-hidden="true"></i></button>
                     {/* {this.state.love === null ? "" : this.state.love === true ? <h4 className="h4-fav-song">Song added to favouarites!</h4> : <h4 className="h4-fav-song">Song removed from favouarites!</h4>} */}
                     <iframe src={this.state.record.songUrlEmbed} title={this.state.record.songTitle} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen id="iframeTrending" className="mb-4 mt-3"></iframe>
                     <div className="info-lyrics-small">
@@ -185,7 +185,7 @@ export default class LyricsMain extends Component {
                         {this.state.record.songLyrics} 
                     </div>
                 </div>
-                <div className="sidenav-info-lyrics">
+                <div className="sidenav-info-lyrics" id="sidenav-info-lyrics">
                     <h3>Song Info</h3>
                     <hr />
                     <h5>Singer(s): {this.state.record.songSinger}</h5>

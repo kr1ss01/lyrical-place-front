@@ -142,7 +142,7 @@ export default class Login extends Component {
                 </div>
                 <div className="login-info">
                     <div>
-                        <header>Welcome to Lyrical Place</header>
+                        <header>Welcome back to Lyrical Place</header>
                         <div>
                             <p>
                                 As a member you can enjoy multiple rewards, post lyrics and vote for other user's lyric posts! Happy writing!
