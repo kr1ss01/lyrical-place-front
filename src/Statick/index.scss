@@ -160,6 +160,12 @@ body {
         padding: 10px;
         margin-bottom: 5px;
         width: 75%;
+        div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
         .a-search {
             display: block;
             padding: 10px;
@@ -199,6 +205,10 @@ body {
 @media screen and (max-width: 700px) {
     .form-search {
         form {
+            div {
+                flex-direction: column !important;
+                align-items: flex-start;
+            }
             width: 100% !important;
         }
     }

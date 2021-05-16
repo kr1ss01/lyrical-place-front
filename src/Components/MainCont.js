@@ -108,13 +108,13 @@ export default class MainCont extends React.Component {
                     <div className="p-container"> 
                         <header style={{fontSize: 24}}>Our Goals!</header>
                         <p>
-                            As an organizasion, we want to achieve the best quality Lyric Page on the internet. We continiously add new and new songs to reach this goal. Now, you can support us too by writing the lyrics of your faviourite song for yourself! This way, you help ous cover more and more songs and you help the commuinty and anyone searching lyrics for any song they enjoy! Be a part of us <a href="/register">today</a>!
+                            As an organizasion, we want to achieve the best quality Lyric Page on the internet. We continiously add new and new songs to reach this goal. Now, you can support us too by writing the lyrics of your faviourite song for yourself! This way, you help ous cover more and more songs and you help the commuinty and anyone searching lyrics for any song they enjoy! Be a part of us <Link to="/register">today</Link>!
                         </p>
                     </div>
                     <div className="p-container">
                         <header style={{fontSize: 24}}>Lyrical Place!</header>
                         <p>
-                            You can search any song you want on our site, from all over the world. If it does not exit yet, you can add it, or request for the addition. Doing this, will send a request to the admins of the site, and warn any other user that a request on this song has been made! You can learn more about <Link to="/contrib">requests</Link> here!
+                            You can search any song you want on our site, from all over the world. If it does not exit yet, you can add it! Uploading a song is very easy, and user friendly. Just go to our <Link to="/contrib">contribute</Link> page ( you must be logged in ) and fill in the form while checking the preview model. Then press "Submit". Easy as that!
                         </p>
                     </div>
                 </div>
@@ -122,7 +122,7 @@ export default class MainCont extends React.Component {
                     <header className="text-center">You can search any song you like here!</header>
                     <small className="text-center text-dark pl-3 pr-3">You can search by any criteria, and the top ten suggestions will appear. Click one and you will be redirected to the lyric page of this song!</small>
                     <form autoComplete="off" onSubmit={this.handleSubmit}>
-                        <div className="search-bar-dropdown d-flex flex-row justify-content-center align-items-center">
+                        <div className="search-bar-dropdown">
                             <input type="text" className="form-control" name="searchSongs" id="searchSongs" required placeholder="Search your song here..." onChange={this.handleInputChange} autoComplete="off" />
                             <button type="submit">Search!</button>
                         </div>
