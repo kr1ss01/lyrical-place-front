@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
+import * as ReactBootStrap from 'react-bootstrap';
 
 export default class Profile extends Component {
 
@@ -20,7 +21,8 @@ export default class Profile extends Component {
         fillFieldsPwd: false,
         newPwdDontMatch: false,
         pwdSuccess: null,
-        url: ""
+        url: "",
+        loading: false
     }
 
     async componentDidMount() {
@@ -39,7 +41,8 @@ export default class Profile extends Component {
             if (result.status === 200) {
                 result.json().then(responseData => {
                     this.setState({
-                        fetchedData: responseData.posts
+                        fetchedData: responseData.posts,
+                        loading: true
                     })
                 })   
             }
@@ -306,12 +309,16 @@ export default class Profile extends Component {
                             </form>
                         </div>
                         <div className="checkFav">
-                            <Link to={{ pathname: `/profile/${this.props.authInfo.username}/faviouarites`, state: { props: this.props.authInfo, name: this.props.authInfo.username }}}>Navigate to your favouarites</Link>
+                            <Link to={{ pathname: `/profile/${this.props.authInfo.username}/faviouarites`, state: { props: this.props.authInfo, name: this.props.authInfo.username }}}>Navigate to your favourites</Link>
                         </div>
                     </div>
                     <div className="lyricPosts" style={{maxHeight: 700, overflowY: "scroll"}}>
                         <h3 className="text-center mb-3">Your Total Posts: {this.state.fetchedData.length}</h3>
-                        {this.handleLyricPosts()}
+                        { this.state.loading ? this.handleLyricPosts() : 
+                        <div className="d-flex justify-content-center align-items-center mt-3">
+                            <ReactBootStrap.Spinner animation="border" variant="dark" className="m-2" />
+                        </div>
+                        }
                     </div>
                 </div>
             </>

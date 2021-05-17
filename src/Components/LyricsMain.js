@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import * as ReactBootStrap from 'react-bootstrap';
 
 export default class LyricsMain extends Component {
 
@@ -8,7 +9,8 @@ export default class LyricsMain extends Component {
         this.state = {
             record: '',
             error: false,
-            success: false
+            success: false,
+            loading: false
         }
     }
 
@@ -33,7 +35,8 @@ export default class LyricsMain extends Component {
             if (result.status === 200) {
                 result.json().then(item => {
                     this.setState({
-                        record: item.record[0]
+                        record: item.record[0],
+                        loading: true
                     })
                 })
             } else {
@@ -163,17 +166,30 @@ export default class LyricsMain extends Component {
                 
     render() {
         return (
-            <>  
-                <div style={{cursor: "default"}} className="d-flex flex-column justify-content-center align-items-center" id="lyricsPages">
-                    {this.state.error === true ? <h4 className="text-center text-danger">Something Went Wrong Contacting The Server...</h4> : ''}
-                    {this.state.success !== false ? <h4 className="text-center text-success">{this.state.success}</h4> : ''}
-                    <h3 className="text-center mt-5 mb-3">{this.state.record.userAuthor} - {this.state.record.songTitle} Lyrics 
-                        {this.handleFav()}
-                    </h3>
-                    <button className="btn btn-outline-dark btn-sm" onClick={() => {let btn =  document.getElementById("sidenav-info-lyrics"); btn.style.display === "none" ? btn.style.display = "block" : btn.style.display = "none"}} id="btn-show-info">Show Info <i className="fa fa-eye" aria-hidden="true"></i></button>
-                    {/* {this.state.love === null ? "" : this.state.love === true ? <h4 className="h4-fav-song">Song added to favouarites!</h4> : <h4 className="h4-fav-song">Song removed from favouarites!</h4>} */}
-                    <iframe src={this.state.record.songUrlEmbed} title={this.state.record.songTitle} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen id="iframeTrending" className="mb-4 mt-3"></iframe>
-                    <div className="info-lyrics-small">
+            <>
+                {this.state.loading ? 
+                <>  
+                    <div style={{cursor: "default"}} className="d-flex flex-column justify-content-center align-items-center" id="lyricsPages">
+                        {this.state.error === true ? <h4 className="text-center text-danger">Something Went Wrong Contacting The Server...</h4> : ''}
+                        {this.state.success !== false ? <h4 className="text-center text-success">{this.state.success}</h4> : ''}
+                            <h3 className="text-center mt-5 mb-3">{this.state.record.userAuthor} - {this.state.record.songTitle} Lyrics 
+                                {this.handleFav()}
+                            </h3>
+                            <button className="btn btn-outline-dark btn-sm" onClick={() => {let btn =  document.getElementById("sidenav-info-lyrics"); btn.style.display === "none" ? btn.style.display = "block" : btn.style.display = "none"}} id="btn-show-info">Show Info <i className="fa fa-eye" aria-hidden="true"></i></button>
+                            <iframe src={this.state.record.songUrlEmbed} title={this.state.record.songTitle} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen id="iframeTrending" className="mb-4 mt-3"></iframe>
+                            <div className="info-lyrics-small">
+                                <h3>Song Info</h3>
+                                <hr />
+                                <h5>Singer(s): {this.state.record.songSinger}</h5>
+                                <h5>Language: {this.state.record.songLang}</h5>
+                                <h5>Album: {this.state.record.songAlbum}</h5>
+                                <h5>Lyrics by: {this.state.record.userAuthor}</h5>
+                            </div>
+                            <div className="bg-dark text-light">
+                                {this.state.record.songLyrics} 
+                            </div>
+                    </div>
+                    <div className="sidenav-info-lyrics" id="sidenav-info-lyrics">
                         <h3>Song Info</h3>
                         <hr />
                         <h5>Singer(s): {this.state.record.songSinger}</h5>
@@ -181,18 +197,12 @@ export default class LyricsMain extends Component {
                         <h5>Album: {this.state.record.songAlbum}</h5>
                         <h5>Lyrics by: {this.state.record.userAuthor}</h5>
                     </div>
-                    <div className="bg-dark text-light">
-                        {this.state.record.songLyrics} 
-                    </div>
+                </>
+                : 
+                <div className="d-flex justify-content-center align-items-center mt-3">
+                    <ReactBootStrap.Spinner animation="border" variant="dark" className="m-2" />
                 </div>
-                <div className="sidenav-info-lyrics" id="sidenav-info-lyrics">
-                    <h3>Song Info</h3>
-                    <hr />
-                    <h5>Singer(s): {this.state.record.songSinger}</h5>
-                    <h5>Language: {this.state.record.songLang}</h5>
-                    <h5>Album: {this.state.record.songAlbum}</h5>
-                    <h5>Lyrics by: {this.state.record.userAuthor}</h5>
-                </div>
+                }
             </>
         )
     }

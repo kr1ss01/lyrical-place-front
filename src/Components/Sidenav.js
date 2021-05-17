@@ -1,4 +1,5 @@
 import React from 'react';
+import * as ReactBootStrap from 'react-bootstrap';
 
 export default class Sidenav extends React.Component {
 
@@ -7,7 +8,8 @@ export default class Sidenav extends React.Component {
 
         this.state = {
             url: '',
-            data: ''
+            data: '',
+            loading: false
         }
     }
 
@@ -22,7 +24,8 @@ export default class Sidenav extends React.Component {
         const slicedData = data.slice(-10).reverse();
 
         this.setState({
-            data: slicedData
+            data: slicedData,
+            loading: true
         })
     }
 
@@ -47,7 +50,11 @@ export default class Sidenav extends React.Component {
             <div className="sideNav" id="sidenav">
                 <button onClick={this.props.onClose}>{this.props.isAuth.isAuth === true  ? "" : "Hide Latest Uploads" } <i className="fa fa-times"></i></button>
                 <hr/>
-                {this.spreadData()}
+                {this.state.loading ? this.spreadData() : 
+                <div className="d-flex justify-content-center align-items-center mt-3">
+                    <ReactBootStrap.Spinner animation="border" variant="dark" className="m-2" />
+                </div>
+                }
             </div>
         );
     }

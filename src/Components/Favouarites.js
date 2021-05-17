@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import * as ReactBootStrap from 'react-bootstrap';
 
 export default class Favouarites extends Component {
 
@@ -7,7 +8,8 @@ export default class Favouarites extends Component {
         super(props);
 
         this.state = {
-            data: ''
+            data: '',
+            loading: false
         }
     }
 
@@ -29,7 +31,8 @@ export default class Favouarites extends Component {
     
             // Set status 
             this.setState({
-                data: slicedData
+                data: slicedData,
+                loading: true
             })
         }
         
@@ -91,7 +94,11 @@ export default class Favouarites extends Component {
                                 <h4>Total songs you like: {this.state.data.length} </h4>
                                 <a href="/lyrics/Titles" id="explore-link">Explore new songs now!</a>
                             </div>
-                            {this.spreadData()}
+                            { this.state.loading ? this.spreadData() : 
+                            <div className="d-flex justify-content-center align-items-center mt-3 w-100">
+                                <ReactBootStrap.Spinner animation="border" variant="dark" className="m-2" />
+                            </div>
+                            }
                             {this.handleAuth()}
                         </div>
                         <div className="fav-main-info mt-4">
